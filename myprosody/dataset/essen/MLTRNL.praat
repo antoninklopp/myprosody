@@ -418,7 +418,11 @@ if int<2
 		   avenumberofwordsrp = (('voicedcount'/1.74)/'speakingtot')*100/2.66
 		   nuofwrdsinchunk = (('voicedcount'/1.74)/'speakingtot')* 'speakingtot'/'npauses'
 		   nuofwrdsinchunkrp = ((('voicedcount'/1.74)/'speakingtot')* 'speakingtot'/'npauses')*100/9
-		   avepauseduratin = ('originaldur'-'speakingtot')/('npauses'-1)
+		   if npause != 0
+		   		avepauseduratin = ('originaldur'-'speakingtot')/('npauses'-1)
+			else
+				avepauseduratin = 0
+			endif
 		   avepauseduratinrp = (('originaldur'-'speakingtot')/('npauses'-1))*100/0.75
 		   balance = ('voicedcount'/'originaldur')/('voicedcount'/'speakingtot')
 		   balancerp = (('voicedcount'/'originaldur')/('voicedcount'/'speakingtot'))*100/0.85
@@ -680,16 +684,17 @@ if int<2
 
 		overscore = xx*4/30
 		ov = overscore
+		xxban$="a1"
 		if xx>=25
-			xxban$="C"
+			xxban$="c"
 			elsif xx>=20 and xx<25
-			xxban$="B2"
+			xxban$="b2"
 			elsif xx>=16 and xx<20
-			xxban$="B1"
+			xxban$="b1"
 			elsif xx>=10 and xx<16
-			xxban$="A2"
+			xxban$="a2"
 			else
-			xxban$="A1"
+			xxban$="a1"
 		endif
 
 		qaz = 0.18
@@ -741,7 +746,11 @@ if int<2
 					xxx$="a"
 				endif
 				
-				fillerratio='voicedcount'/'npause'
+				if npause != 0
+					fillerratio='voicedcount'/'npause'
+				else
+					fillerratio = 0
+				endif
 				
 		# Long pause analysis variables
 			silencedb = 'silence_threshold'
@@ -857,10 +866,38 @@ if int<2
 
 		npausez= 'npausesz'		
 				
-		avelongpause='originaldur'/'npausez'	
+		avelongpause='originaldur'/'npausez'
+
+		xxban = 1	
 				
 		Erase all
-		appendInfoLine:'avepauseduratin',tab$,'avelongpause',tab$,'speakingtot:2',tab$,'avenumberofwords',tab$,'articulationrate',tab$,'inpro',tab$,'f1norm',tab$,'mr',tab$,'q25',tab$,'q50',tab$,'q75', tab$, 'std',tab$,'fmax',tab$,'fmin',tab$,'vowelinx1',tab$,'vowelinx2',tab$,'formantmean',tab$,'formantstd',tab$,'nuofwrds:0',tab$,'npause',tab$,'ins',tab$,'fillerratio',tab$,'xx',tab$,xxx$,tab$,'totsco',tab$,xxban$,tab$,'speakingrate'
+		appendInfoLine:'avepauseduratin'
+		appendInfoLine:'avelongpause'
+		appendInfoLine:'speakingtot:2'
+		appendInfoLine:'avenumberofwords'
+		appendInfoLine:'articulationrate'
+		appendInfoLine:'inpro'
+		appendInfoLine:'f1norm'
+		appendInfoLine:'mr'
+		appendInfoLine:'q25'
+		appendInfoLine:'q50'
+		appendInfoLine:'q75'
+		appendInfoLine:'std'
+		appendInfoLine:'fmax'
+		appendInfoLine:'fmin'
+		appendInfoLine:'vowelinx1'
+		appendInfoLine:'vowelinx2'
+		appendInfoLine:'formantmean'
+		appendInfoLine:'formantstd'
+		appendInfoLine:'nuofwrds:0'
+		appendInfoLine:'npause'
+		appendInfoLine:'ins'
+		appendInfoLine:'fillerratio'
+		appendInfoLine:'xx'
+		appendInfoLine:'xxx$'
+		appendInfoLine:'totsco'
+		appendInfoLine:'xxban'
+		appendInfoLine:'speakingrate'
 	endif	
 	if nuofwrds<10
 		appendInfoLine:'avepauseduratin',tab$,'avelongpause',tab$,'speakingtot:2',tab$,'avenumberofwords',tab$,'articulationrate',tab$,'inpro',tab$,'f1norm',tab$,'mr',tab$,'q25',tab$,'q50',tab$,'q75', tab$, 'std',tab$,'fmax',tab$,'fmin',tab$,'vowelinx1',tab$,'vowelinx2',tab$,'formantmean',tab$,'formantstd',tab$,'nuofwrds:0',tab$,'npause',tab$,'ins',tab$,'fillerratio',tab$,'xx',tab$,xxx$,tab$,'totsco',tab$,xxban$,tab$,'speakingrate'
